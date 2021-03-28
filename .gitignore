@@ -6,6 +6,9 @@
 /.yarn
 package-lock.json
 
+# env
+.env
+
 # Logs
 logs
 *.log
