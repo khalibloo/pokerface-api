@@ -15,17 +15,20 @@ import { VotesModule } from "./votes/votes.module";
 import { Round } from "./rounds/entities/round.entity";
 import { Card } from "./cards/entities/card.entity";
 import { Vote } from "./votes/entities/vote.entity";
+import { AuthModule } from "./auth/auth.module";
+import { parse } from "pg-connection-string";
 
+// const dbConfig = parse(process.env.DATABASE_URL);
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
       type: "postgres",
-      host: "localhost",
-      port: 5432,
-      username: "postgres",
-      password: "meowmeow",
-      database: "pokerface",
+      host: parse(process.env.DATABASE_URL).host,
+      port: parseInt(parse(process.env.DATABASE_URL).port, 10),
+      username: parse(process.env.DATABASE_URL).user,
+      password: parse(process.env.DATABASE_URL).password,
+      database: parse(process.env.DATABASE_URL).database,
       entities: [User, Room, Round, Card, Vote],
       synchronize: true,
     }),
@@ -34,6 +37,7 @@ import { Vote } from "./votes/entities/vote.entity";
     CardsModule,
     RoundsModule,
     VotesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

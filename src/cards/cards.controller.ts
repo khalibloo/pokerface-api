@@ -6,13 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
+  UseGuards,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 import { CardsService } from "./cards.service";
 import { CreateCardDto } from "./dto/create-card.dto";
 import { UpdateCardDto } from "./dto/update-card.dto";
 
+@UseGuards(JwtAuthGuard)
 @ApiTags("Cards")
 @Controller("cards")
 export class CardsController {
@@ -24,7 +28,8 @@ export class CardsController {
   }
 
   @Get()
-  findAll() {
+  findAll(@Request() req) {
+    console.log(req.user);
     return this.cardsService.findAll();
   }
 
