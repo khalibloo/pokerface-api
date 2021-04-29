@@ -5,6 +5,7 @@ export class CreateRoomDto extends OmitType(Room, [
   "owner",
   "cards",
   "rounds",
+  "isPublished",
   "id",
   "createdAt",
   "updatedAt",

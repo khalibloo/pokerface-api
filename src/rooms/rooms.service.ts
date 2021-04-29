@@ -19,7 +19,14 @@ export class RoomsService {
       password,
       parseInt(process.env.BCRYPT_ROUNDS, 10),
     );
-    return this.roomsRepository.create({ ...data, password: hashedPwd });
+    console.log({ ...data, password: hashedPwd });
+
+    return this.roomsRepository.create({
+      ...data,
+      password: hashedPwd,
+      isPublished: false,
+      owner: "Mario",
+    });
   }
 
   update(id: number, data: UpdateRoomDto): Promise<UpdateResult> {

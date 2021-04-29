@@ -5,8 +5,6 @@ import { ConfigModule } from "@nestjs/config";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { User } from "./users/entities/user.entity";
-import { UsersModule } from "./users/users.module";
 import { RoomsModule } from "./rooms/rooms.module";
 import { Room } from "./rooms/entities/room.entity";
 import { CardsModule } from "./cards/cards.module";
@@ -18,7 +16,6 @@ import { Vote } from "./votes/entities/vote.entity";
 import { AuthModule } from "./auth/auth.module";
 import { parse } from "pg-connection-string";
 
-// const dbConfig = parse(process.env.DATABASE_URL);
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -29,10 +26,9 @@ import { parse } from "pg-connection-string";
       username: parse(process.env.DATABASE_URL).user,
       password: parse(process.env.DATABASE_URL).password,
       database: parse(process.env.DATABASE_URL).database,
-      entities: [User, Room, Round, Card, Vote],
-      synchronize: true,
+      entities: [Room, Round, Card, Vote],
+      // synchronize: true,
     }),
-    UsersModule,
     RoomsModule,
     CardsModule,
     RoundsModule,
